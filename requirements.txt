@@ -4,3 +4,6 @@ numpy
 gunicorn
 pytz
 sqlparse
+django-cors-headers
+djangorestframework-simplejwt
+psycopg2-binary
