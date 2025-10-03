@@ -1,0 +1,31 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Build Docker image
+      run: docker build -t techcorp-app .
+
+    - name: Run tests
+      run: |
+        docker run --rm techcorp-app python manage.py test
+
+    - name: Push Docker image to Docker Hub
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: your-dockerhub-username/techcorp-app:latest
